@@ -11,6 +11,8 @@ A simple task manager application
 
 ## How to Run
 1. Clone this repository: git clone git@github.com:MRJoe9999/task-manager.git
-2. Navigate to the folder: task manager
+2. Navigate to the folder: Homework
 3. run npm install 
 4. run the application using npm start command
+ ## Youtube Video
+ https://youtu.be/rNzVDMHB_ss
