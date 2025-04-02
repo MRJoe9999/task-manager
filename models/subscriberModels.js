@@ -10,3 +10,19 @@ export const getAlltasks = async () =>{
         throw error;
     }
 }
+
+export const addTasks = async (title, description) =>{
+    if(description === ""){
+        description = null;
+    }
+    try{
+        const result = await query(
+            "INSERT INTO tasks (title, description) VALUES ($1, $2) RETURNING *",
+            [title, description]
+        );
+        return result.rows[0];
+    } catch (error) {
+        console.error("Error adding signups:", error);
+        throw error;
+    }
+};

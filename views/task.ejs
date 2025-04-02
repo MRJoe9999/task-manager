@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <%- include('partials/header') %>
 
-
-    <div class="container"> <h1>Task Manager</h1>
-    </div>
     
     <div class="form-layout"><form action="/add-task" method="post">
-        <input type="text" id="name" name="name" placeholder="Name">
+        <input type="text" id="name" name="task" placeholder="Name">
         <input type="text" id="description" name="description" placeholder="Description">
         <button type="submit">Add Tasks</button>
     </form>
@@ -33,5 +31,6 @@
     <% }); %>
 </ul>
 
+<%- include('partials/footer') %>
 </body>
 </html>

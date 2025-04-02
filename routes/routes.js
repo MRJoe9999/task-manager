@@ -1,7 +1,7 @@
 import express from "express";
 import { get } from "http";
 import path from "path";
-import { getTasks } from "../controllers/controllers.js";
+import { getTasks, postTask } from "../controllers/controllers.js";
 
 const router = express.Router();
 
@@ -15,16 +15,7 @@ router.get('/', (req, res)=>{
     res.render('task', {tasks});
 });
 
-router.post('/add-task', (req, res)=>{
-    const {name, description} = req.body;
-    if(!name || !description){
-        return res.status(400).send("Name and descriptions are required");
-
-    }
-
-    tasks.push({name, description, id: taskid++, completed: false });
-    res.redirect('/');
-});
+router.post('/add-task', postTask);
 router.post('/toggle-task/:id', (req, res)=>{
     const task = tasks.find(t => t.id == req.params.id);
     if(!task) {
