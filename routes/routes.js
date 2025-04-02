@@ -1,10 +1,15 @@
 import express from "express";
+import { get } from "http";
+import path from "path";
+import { getTasks } from "../controllers/controllers.js";
 
 const router = express.Router();
-import 'path';
+
 
 let tasks = [];
 let taskid = 1;
+
+router.get("/json", getTasks);
 
 router.get('/', (req, res)=>{
     res.render('task', {tasks});
