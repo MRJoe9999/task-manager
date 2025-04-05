@@ -1,9 +1,10 @@
-import { getAlltasks, addTasks } from "../models/subscriberModels.js";
+import { getAlltasks, addTasks, update } from "../models/subscriberModels.js";
 
 export const getTasks = async (req, res) => {  
     try{
+        const error = req.query.error;
         const tasks = await getAlltasks();
-        res.json(tasks);
+        res.render("task", {tasks, error});
 
     }
     catch(error){
@@ -14,15 +15,27 @@ export const getTasks = async (req, res) => {
 
 export const postTask = async (req, res) => {   
     const {task, description} = req.body;
+    const tasks = await getAlltasks();
     if(!task || task.length < 3){
-        return res.status(400).send("Task is requied to be longer than three characters");
+        return res.render("task", { 
+            error: "Task is required and must be longer than three characters.",
+            tasks,
+        });
 
     }
     if (task.length > 100) {
-        return res.status(400).send("Task title cannot exceed 100 characters.");
+        return res.render("task", { 
+            error: "Task cannot exceed 100 characters.",
+            tasks,
+        });
+
     }
     if (description && description.length > 500) {
-        return res.status(400).send("Description cannot exceed 500 characters.");
+        return res.render("task", { 
+            error: "Description cannot exceed 500 characters.",
+            tasks,
+        });
+
     }
     try{
         const newTask = await addTasks(task, description);
@@ -36,3 +49,15 @@ export const postTask = async (req, res) => {
     }
 
 }
+
+export const updateTask = async (req, res) => {
+    const { id } = req.params;
+    console.log("PUT route hit, id:", id); // <-- Add this
+    try {
+        await update(id);
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to update task" });
+    }
+};

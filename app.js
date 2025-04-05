@@ -1,8 +1,13 @@
 import express from "express";
 import path from "path";
 import routes from "./routes/routes.js";
+import methodOverride from "method-override";
+
+
+
 
 const app = express();
+app.use(methodOverride('_method'));
 
 app.use(express.urlencoded({extended: true}));
 

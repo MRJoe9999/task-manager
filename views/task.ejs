@@ -11,22 +11,37 @@
 
     
     <div class="form-layout"><form action="/add-task" method="post">
-        <input type="text" id="name" name="task" placeholder="Name">
+        <input type="text" id="name" name="task" placeholder="Name" required>
         <input type="text" id="description" name="description" placeholder="Description">
         <button type="submit">Add Tasks</button>
     </form>
 </div>
 <h2>Task List</h2>
+
+
+
 <ul>
+    <% if (tasks.length === 0) { %>
+        <li>No tasks available</li>
+    <% } %>
+    <% if (error) { %>
+        <div class="error-message" style="color:red;"><%= error %></div>
+      <% } %>
+
     <% tasks.forEach(task => { %>
+        
         <li class="task <%= task.completed ? 'completed' : '' %>">
-            <%= task.name %> - <%= task.description %>
-            <form action="/toggle-task/<%= task.id %>" method="POST" style="display:inline;">
-                <button type="submit" class="<%= task.completed ? 'done' : '' %>">Completed</button>
-            </form>
-            <form action="/delete-task/<%= task.id %>" method="POST" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
+            <%= task.title %> - <%= task.description %>
+            <!-- PUT -->
+<form action="/tasks/<%= task.id %>?_method=PUT" method="POST">
+    <button type="submit">Mark as Complete</button>
+</form>
+
+<!-- DELETE -->
+<form action="/tasks/<%= task.id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete</button>
+</form>
+
         </li>
     <% }); %>
 </ul>

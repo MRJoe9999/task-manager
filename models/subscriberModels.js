@@ -26,3 +26,16 @@ export const addTasks = async (title, description) =>{
         throw error;
     }
 };
+
+export const update = async (id) => {
+    try {
+        const result = await query(
+            "UPDATE tasks SET completed = true WHERE id = $1 RETURNING *",
+            [id]
+        );
+        return result.rows[0];
+    } catch (error) {
+        console.error("Error toggling task completion:", error);
+        throw error;
+    }
+};
