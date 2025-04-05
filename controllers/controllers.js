@@ -1,9 +1,15 @@
-import { getAlltasks, addTasks, update } from "../models/subscriberModels.js";
+import { getAlltasks, addTasks, update, deleteTasks } from "../models/subscriberModels.js";
 
 export const getTasks = async (req, res) => {  
     try{
         const error = req.query.error;
         const tasks = await getAlltasks();
+
+        
+        tasks.sort((a, b) => {
+            if (a.completed === b.completed) return 0; // Same completion status
+            return a.completed ? 1 : -1; // Incomplete first, completed last
+        });
         res.render("task", {tasks, error});
 
     }
@@ -61,3 +67,15 @@ export const updateTask = async (req, res) => {
         res.status(500).json({ error: "Failed to update task" });
     }
 };
+
+export const deleteTask = async (req, res) => {
+    const { id } = req.params;
+    console.log("DELETE route hit, id:", id); // <-- Add this
+    try {
+        await deleteTasks(id);
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to delete task" });
+    }
+}

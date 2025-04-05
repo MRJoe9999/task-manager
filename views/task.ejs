@@ -18,7 +18,7 @@
 </div>
 <h2>Task List</h2>
 
-
+<div class="task-list">
 
 <ul>
     <% if (tasks.length === 0) { %>
@@ -30,21 +30,22 @@
 
     <% tasks.forEach(task => { %>
         
-        <li class="task <%= task.completed ? 'completed' : '' %>">
+        <li class="task <%= task.completed ? 'completed' : '' %>" >
             <%= task.title %> - <%= task.description %>
             <!-- PUT -->
-<form action="/tasks/<%= task.id %>?_method=PUT" method="POST">
-    <button type="submit">Mark as Complete</button>
+<form action="/toggle-task/<%= task.id %>?_method=PUT" method="POST" style="display:inline;" id="complete-button">
+    <button type="submit" class="<%= task.completed ? 'done' : '' %>">Mark as Complete</button>
 </form>
 
 <!-- DELETE -->
-<form action="/tasks/<%= task.id %>?_method=DELETE" method="POST">
+<form action="/delete-task/<%= task.id %>?_method=DELETE" method="POST" style="display:inline;" id="delete-button">
     <button type="submit">Delete</button>
 </form>
 
         </li>
     <% }); %>
 </ul>
+</div>
 
 <%- include('partials/footer') %>
 </body>

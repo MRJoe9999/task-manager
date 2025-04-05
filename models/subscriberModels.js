@@ -3,7 +3,7 @@ import {query} from '../config/db.js';
 
 export const getAlltasks = async () =>{
     try{
-        const result = await query("SELECT title, description FROM tasks");
+        const result = await query("SELECT * FROM tasks");
         return result.rows;
     }catch(error){
         console.error("Error fetching tasks:", error);
@@ -30,6 +30,7 @@ export const addTasks = async (title, description) =>{
 export const update = async (id) => {
     try {
         const result = await query(
+            
             "UPDATE tasks SET completed = true WHERE id = $1 RETURNING *",
             [id]
         );
@@ -39,3 +40,16 @@ export const update = async (id) => {
         throw error;
     }
 };
+
+export const deleteTasks = async (id) => {
+    try {
+        const result = await query(
+            "DELETE FROM tasks WHERE id = $1 RETURNING *",
+            [id]
+        );
+        return result.rows[0];
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        throw error;
+    }
+}
