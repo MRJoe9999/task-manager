@@ -7,8 +7,8 @@ export const getTasks = async (req, res) => {
 
         
         tasks.sort((a, b) => {
-            if (a.completed === b.completed) return 0; // Same completion status
-            return a.completed ? 1 : -1; // Incomplete first, completed last
+            if (a.completed === b.completed) return 0; 
+            return a.completed ? 1 : -1; 
         });
         res.render("task", {tasks, error});
 
@@ -58,7 +58,7 @@ export const postTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
     const { id } = req.params;
-    console.log("PUT route hit, id:", id); // <-- Add this
+    console.log("PUT route hit, id:", id); 
     try {
         await update(id);
         res.redirect('/');
@@ -70,7 +70,7 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
     const { id } = req.params;
-    console.log("DELETE route hit, id:", id); // <-- Add this
+    console.log("DELETE route hit, id:", id); 
     try {
         await deleteTasks(id);
         res.redirect('/');

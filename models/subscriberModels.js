@@ -1,4 +1,4 @@
-//create me the schema for the subscriber
+
 import {query} from '../config/db.js';
 
 export const getAlltasks = async () =>{

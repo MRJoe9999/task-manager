@@ -15,4 +15,3 @@ A simple task manager application
 3. run npm install 
 4. run the application using npm start command
  ## Youtube Video
- https://youtu.be/rNzVDMHB_ss
